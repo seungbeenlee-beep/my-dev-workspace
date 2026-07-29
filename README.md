@@ -1147,6 +1147,7 @@ git commit -m '첫 번째 커밋'
 
 현재 로컬 Git 저장소에 Github 저장소 주소를 'origin'이라는 이름으로 등록하였다.
 
+명령어:
 ```bash
 git remote add origin https://github.com/seungbeenlee-bxxx/ia-codyssey.git
 ```
@@ -1158,6 +1159,40 @@ git remote add origin https://github.com/seungbeenlee-bxxx/ia-codyssey.git
 | `add` | 새로운 원격 저장소를 등록한다. |
 | `origin` | 원격 저장소에 지정한 별칭이다. |
 | GitHub 저장소 URL | 실제 연결할 GitHub 원격 저장소 주소다. |
+
+#### 4.9.4 push
+
+다음 명령어를 사용하여 로컬 `main` 브랜치를 GitHub 원격 저장소에 전송하려 하였다.
+
+명령어:
+```bash
+git push -u origin main
+```
+
+##### 명령어 및 옵션 설명
+
+| 명령어·인자 | 설명 |
+|---|---|
+| `git push` | 로컬 저장소의 커밋을 원격 저장소로 전송한다. |
+| `-u` | 로컬 브랜치와 원격 브랜치의 추적 관계를 설정한다. `--set-upstream`의 축약형이다. |
+| `origin` | GitHub 원격 저장소에 지정한 별칭이다. |
+| `main` | 원격 저장소로 전송할 로컬 브랜치 이름이다. |
+
+출력 결과:
+```bash
+오브젝트 나열하는 중: 3, 완료.
+오브젝트 개수 세는 중: 100% (3/3), 완료.
+Delta compression using up to 6 threads
+오브젝트 압축하는 중: 100% (2/2), 완료.
+오브젝트 쓰는 중: 100% (3/3), 11.51 KiB | 11.51 MiB/s, 완료.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/seungbeenlee-bxxx/ia-codyssey.git
+ * [new branch]      main -> main
+```
+#### 4.9.5 GitHub 연동 증거 확인
+
+![GitHub 저장소 연동 결과](./images/10-github-push.png)
+
 
 ## 5. 트러블슈팅
 ### 트러블 1: (문제 요약)
