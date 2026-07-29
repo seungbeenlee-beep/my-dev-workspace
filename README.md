@@ -1048,12 +1048,125 @@ curl http://127.0.0.1:8081
 4. 볼륨에 저장된 기존 index.html을 새 컨테이너에서도 확인할 수 있었다.
 5. Docker 볼륨의 데이터는 컨테이너의 생명 주기와 분리되어 영속적으로 유지된다.
 
+### 4.9 Git 설정 및 Github 연동
+
+#### 4.9.1 Git 사용자 정보 설정
+
+Git 설정은 적용 범위에 따라 다음과 같이 구분된다. <br>
+
+| 설정 범위 | 옵션 | 적용 대상 |
+|---|---|---|
+| 시스템 설정 | `--system` | 해당 컴퓨터를 사용하는 모든 사용자 |
+| 전역 설정 | `--global` | 현재 macOS 사용자로 사용하는 모든 Git 저장소 |
+| 로컬 설정 | `--local` | 현재 Git 저장소에만 적용 |
+
+이번 실습에서는 사용자 이름, 이메일, 기본 브랜치 설정을 현재 macOS 사용자 전체에 적용하기 위해 `--global` 옵션을 사용하였다. <br>
+
+다음 명령어를 사용하여 현재 전역 설정된 사용자 이름, 이메일, 기본 브랜치를 설정하였다.
+
+명령어:
+```bash
+git config --global user.name "seungbeenlee-beep"
+git config --global user.email "joyxxx231123@gmail.com"
+git config --global init.defaultBranch main
+```
+##### 명령어 설명
+
+```bash
+git config --global user.name "seungbeenlee-bxxx"
+```
+
+Git 커밋에 기록할 작성자 이름을 설정한다.
+
+```bash
+git config --global user.email "joyxxx231123@gmail.com"
+```
+
+Git 커밋에 기록할 작성자 이메일을 설정한다.
+
+```bash
+git config --global init.defaultBranch main
+```
+
+앞으로 `git init`으로 새 저장소를 만들 때 기본 브랜치가 `main`으로 생성되도록 설정한다.
+
+#### 4.9.2 git config --list 결과 기록 
+
+명령어:
+```bash
+git config --list
+```
+
+출력 결과:
+user.name=seungbeenlee-beep
+user.email=joyxxx231123@gmail.com
+init.defaultbranch=master
+
+#### 4.9.3 현재 프로젝트를 Git 저장소로 초기화/커밋
+
+현재 `my-dev-workspace` 디렉터리를 Git 저장소로 사용하기 위해 다음 명령어를 실행한다.
+
+명령어:
+```bash
+git init
+```
+
+##### 명령어 설명
+
+`git init`은 현재 디렉터리에 `.git`이라는 숨김 디렉터리를 생성하고, 해당 디렉터리를 Git 저장소로 초기화한다.
+
+```text
+my-dev-workspace
+├── README.md
+└── .git
+```
+
+이후 커밋을 `push`하기 전 다음 명령어를 실행한다.
+
+명령어:
+```bash
+git add .
+git commit -m '첫 번째 커밋'
+```
+##### 명령어 설명
+
+| 명령어·옵션 | 설명 |
+|---|---|
+| `git add .` | 현재 디렉터리와 하위 디렉터리의 변경 파일을 스테이징 영역에 등록한다. 여기서 `.`은 현재 디렉터리를 의미한다. |
+| `git commit` | 스테이징 영역에 등록된 변경 내용을 하나의 커밋으로 로컬 Git 저장소에 기록한다. |
+| `-m` | 커밋 메시지를 명령어에서 직접 작성하기 위한 옵션이다. |
+| `'첫 번째 커밋'` | 해당 커밋의 작업 내용을 나타내는 커밋 메시지다. |
+
+출력 결과:
+```bash
+[master (최상위-커밋) 282dfaf] 첫번째 커밋
+ 1 file changed, 1061 insertions(+)
+ create mode 100644 README.md
+```
+#### 4.9.4 Github 원격 저장소 등록
+
+현재 로컬 Git 저장소에 Github 저장소 주소를 'origin'이라는 이름으로 등록하였다.
+
+```bash
+git remote add origin https://github.com/seungbeenlee-bxxx/ia-codyssey.git
+```
+##### 명령어 및 인자 설명
+
+| 명령어·인자 | 설명 |
+|---|---|
+| `git remote` | 원격 저장소 정보를 관리한다. |
+| `add` | 새로운 원격 저장소를 등록한다. |
+| `origin` | 원격 저장소에 지정한 별칭이다. |
+| GitHub 저장소 URL | 실제 연결할 GitHub 원격 저장소 주소다. |
+
 ## 5. 트러블슈팅
 ### 트러블 1: (문제 요약)
 - **문제**: 그냥 docker exec 하자 docker 명령어가 안먹힘
 - **원인 가설**: 경로가 루트 시작이었기 때문에 컨테이너 안이라는 걸 깨달음
 - **확인**: pwd를 통해
 - **해결/대안**: 새로운 터미널로 연결했다
+
+
 
 ### 트러블 2: (문제 요약)
 - (위와 동일 구조)
