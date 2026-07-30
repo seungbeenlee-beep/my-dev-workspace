@@ -837,6 +837,20 @@ ee4d73c4fea4   my-nginx:1.0   "/docker-entrypoint.…"   4 seconds ago   Up 4 se
 
 `PORTS` 항목을 통해 포트 매핑이 정상적으로 적용된 것을 알 수 있다.
 
+추가로 다른 컨테이너가 해당 포트에 접속하면 어떻게 되는지 실험해 보았다.
+
+명령어:
+```bash
+docker run -d --name custom-nginx1 -p 127.0.0.1:8080:80 my-nginx:1.0
+```
+
+출력 결과:
+```bash
+d8c58807276e4225c574a3a105ab074eff27347c9baf06f2c6acc9685498d6f8
+docker: Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint custom-nginx1 (44aac253caaed284ff76f3e2b8532a1672b7891ee08994cc3f0a8ffc23be5859): Bind for 127.0.0.1:8080 failed: port is already allocated
+```
+포트가 이미 점유되었다는 오류 메세지가 나타난다.
+
 #### 4.7.2 curl 응답을 이용한 접속 증거 확인
 
 명령어:
